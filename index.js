@@ -49,6 +49,18 @@ export var Gravity;
     Gravity[Gravity["CENTER_VERTICAL"] = 16] = "CENTER_VERTICAL";
     Gravity[Gravity["CENTER_HORIZONTAL"] = 1] = "CENTER_HORIZONTAL";
 })(Gravity || (Gravity = {}));
+export var Align;
+(function (Align) {
+    Align[Align["Center"] = 0] = "Center";
+    Align[Align["Left"] = 1] = "Left";
+    Align[Align["Right"] = 2] = "Right";
+    Align[Align["Top"] = 3] = "Top";
+    Align[Align["Bottom"] = 4] = "Bottom";
+    Align[Align["TopLeft"] = 5] = "TopLeft";
+    Align[Align["TopRight"] = 6] = "TopRight";
+    Align[Align["BottomRight"] = 7] = "BottomRight";
+    Align[Align["BottomLeft"] = 8] = "BottomLeft";
+})(Align || (Align = {}));
 export default class NaverMapView extends Component {
     constructor() {
         super(...arguments);
@@ -109,7 +121,15 @@ export class Polyline extends Component {
 }
 export class Polygon extends Component {
     render() {
-        return React.createElement(RNNaverMapPolygonOverlay, Object.assign({}, this.props));
+        return Platform.select({
+            android: () => React.createElement(RNNaverMapPolygonOverlay, Object.assign({}, this.props)),
+            ios: () => React.createElement(RNNaverMapPolygonOverlay, Object.assign({}, this.props, {
+                coordinates: {
+                    exteriorRing: this.props.coordinates,
+                    interiorRings: this.props.holes,
+                }
+            })),
+        })();
     }
 }
 export class Path extends Component {
