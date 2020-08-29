@@ -3,6 +3,7 @@ package com.github.quadflask.react.navermap;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PointF;
+
 import androidx.core.util.Consumer;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -10,6 +11,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.overlay.Align;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,11 @@ public class ReactUtil {
         return Color.BLACK;
     }
 
+    public static Align parseAlign(int align) {
+        if (align < 0 || align >= Align.values().length) return Align.Bottom;
+        return Align.values()[align];
+    }
+
     public static LatLng toNaverLatLng(ReadableMap map) {
         final double latitude = map.getDouble("latitude");
         final double longitude = map.getDouble("longitude");
@@ -53,6 +60,11 @@ public class ReactUtil {
         if (option != null && option.hasKey(key))
             return option.getInt(key);
         return defaultValue;
+    }
+
+    public static Double getDoubleOrNull(ReadableMap option, String key) {
+        if (option.hasKey(key)) return option.getDouble(key);
+        return null;
     }
 
     public static void getNumber(ReadableMap option, String key, Consumer<Double> consumer) {
