@@ -213,6 +213,12 @@ public class RNNaverMapView extends MapView implements OnMapReadyCallback, Naver
         });
     }
 
+    public void onMarkerClick(Long companyId){
+        WritableMap param = Arguments.createMap();
+        param.putInt("companyId", companyId.intValue());
+        emitEvent("onMarkerClick", param);
+    }
+
     @Override
     public void removeFeatureAt(int index) {
         RNNaverMapFeature<?> feature = features.remove(index);

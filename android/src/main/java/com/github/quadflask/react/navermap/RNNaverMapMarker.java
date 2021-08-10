@@ -14,6 +14,7 @@ import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.facebook.common.references.CloseableReference;
@@ -31,21 +32,56 @@ import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.overlay.Align;
 
-public class RNNaverMapMarker extends ClickableRNNaverMapFeature<Marker> {
+public class RNNaverMapMarker extends ClickableRNNaverMapFeature<Marker> implements Overlay.OnClickListener{
     private final DraweeHolder<GenericDraweeHierarchy> imageHolder;
     private boolean animated = false;
     private int duration = 500;
     private TimeInterpolator easingFunction;
+    private MPlaceVO vo;
+    private RNNaverMapView mapView;
 
     public RNNaverMapMarker(EventEmittable emitter, Context context) {
         super(emitter, context);
         feature = new Marker();
         imageHolder = DraweeHolder.create(createDraweeHierarchy(), context);
         imageHolder.onAttach();
+        this.vo = new MPlaceVO();
+    }
+
+    @Override
+    public void addToMap(RNNaverMapView map) {
+        // TODO : favorite 이면 on 아니면 off 이미지를 Icon 으로 선택해야 한다.
+        if("Y".equals(vo.getFavorites())) {
+            feature.setIcon(OverlayImage.fromResource(R.drawable.star_off_16x15));
+        }else{
+            feature.setIcon(OverlayImage.fromResource(R.drawable.star_on_16x15));
+        }
+
+        this.mapView = map;
+        feature.setMap(map.getMap());
+        feature.setWidth(60);
+        feature.setHeight(60);
+
+        if(this instanceof RNNaverMapMarker){
+            InfoWindow infoWindow = new InfoWindow();
+            InfoWindow.ViewAdapter view = new BowlingPlaceMarker(getContext(), ((RNNaverMapMarker)this).getVo());
+            infoWindow.setAdapter(view);
+            infoWindow.open(feature);
+            infoWindow.setOnClickListener(this);
+        }
+        feature.setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onClick(@NonNull Overlay overlay) {
+        this.mapView.onMarkerClick(vo.getCompanyId());
+        return true;
     }
 
     private GenericDraweeHierarchy createDraweeHierarchy() {
@@ -216,5 +252,21 @@ public class RNNaverMapMarker extends ClickableRNNaverMapFeature<Marker> {
 
     private int getRidFromName(String name) {
         return getContext().getResources().getIdentifier(name, "drawable", getContext().getPackageName());
+    }
+
+    public MPlaceVO getVo() {
+        return vo;
+    }
+
+    public void setVo(MPlaceVO vo) {
+        this.vo = vo;
+    }
+
+    public RNNaverMapView getMapView() {
+        return mapView;
+    }
+
+    public void setMapView(RNNaverMapView mapView) {
+        this.mapView = mapView;
     }
 }

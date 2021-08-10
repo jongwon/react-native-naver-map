@@ -134,4 +134,61 @@ public class RNNaverMapMarkerManager extends EventEmittableViewGroupManager<RNNa
 
         view.setCaption(text, textSize, color, haloColor, align);
     }
+
+    @ReactProp(name="id")
+    public void setId(RNNaverMapMarker view, String id){
+        view.getVo().setId(id);
+    }
+
+    @ReactProp(name="companyId")
+    public void setCompanyId(RNNaverMapMarker view, int companyId){
+        view.getVo().setCompanyId((long)companyId);
+    }
+
+    @ReactProp(name="name")
+    public void setName(RNNaverMapMarker view, String name){
+        view.getVo().setName(name);
+    }
+
+    @ReactProp(name="address")
+    public void setAddress(RNNaverMapMarker view, String address){
+        view.getVo().setAddress(address);
+    }
+
+    @ReactProp(name="bookingTimeCount")
+    public void setBookingTimeCount(RNNaverMapMarker view, Integer bookingTimeCount){
+        view.getVo().setBookingTimeCount(bookingTimeCount);
+    }
+
+    @ReactProp(name="coast")
+    public void setCoast(RNNaverMapMarker view, int cost){
+        view.getVo().setCoast((long)cost);
+    }
+
+    @ReactProp(name="lanes")
+    public void setLanes(RNNaverMapMarker view, int lanes){
+        view.getVo().setLanes(lanes);
+    }
+
+    @ReactProp(name="favorites")
+    public void setFavorites(RNNaverMapMarker view, String favorites){
+        view.getVo().setFavorites(favorites);
+    }
+
+    @ReactProp(name="distance")
+    public void setDistance(RNNaverMapMarker view, String distance){
+        view.getVo().setDistance(distance);
+    }
+
+    @ReactProp(name="franchisee")
+    public void setFranchisee(RNNaverMapMarker view, String franchisee){
+        view.getVo().setFranchisee(franchisee);
+    }
+
+    @ReactProp(name="parking")
+    public void setParking(RNNaverMapMarker view, int parking){
+        view.getVo().setParking(parking);
+    }
+
+
 }

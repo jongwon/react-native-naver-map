@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:id="@+id/place_marker_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/box_on_109x72"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="@android:integer/config_longAnimTime"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                >
+            <TextView
+                android:id="@+id/placeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="#0C0C0C"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                tools:text="스매싱볼 홍대점" />
+
+            <TextView
+                android:id="@+id/laneCounts"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity=""
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_corner"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:shadowRadius="@android:integer/config_longAnimTime"
+                android:text=""
+                android:textColor="#FFF000"
+                android:textSize="14dp"
+                tools:text="9 레인" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                >
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="2dp"
+                    app:srcCompat="@drawable/icon_004_10x10" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="bottom"
+                    android:text="예약가능타임"
+                    android:textSize="12dp"
+                    tools:text="예약가능타임" />
+                <TextView
+                    android:id="@+id/bookingTimeCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:gravity="bottom"
+                    android:text=""
+                    android:textSize="12dp"
+                    tools:text="9" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/parkingImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignRight="@+id/place_marker_background"
+        android:layout_marginRight="-15dp"
+        app:srcCompat="@drawable/icon_021_23x23" />
+
+</RelativeLayout>
